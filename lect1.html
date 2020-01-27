@@ -391,10 +391,17 @@ Pubh 8446
 <li>inherently depend on the selection/rejection criterion</li>
 </ul></li>
 <li>FDR control is challenging due to high dimensionality and complicated dependence among features</li>
-<li>Formally, in a multivariate regression problem of <span class="math inline">\(Y\)</span> on <span class="math inline">\((X_1,\cdots,X_m)\)</span>
+<li>For example
+<ul>
+<li>In a multivariate regression problem of <span class="math inline">\(Y\)</span> on <span class="math inline">\((X_1,\cdots,X_m)\)</span>
 <ul>
 <li>null hypothesis <span class="math inline">\(H_j\)</span>: <span class="math inline">\(X_j\)</span> is independent of <span class="math inline">\(Y\)</span> once we have information about all the other features.</li>
 <li>conditional independence</li>
+</ul></li>
+<li>Or we might be interested in the marginal association, i.e. testing <span class="math inline">\(Y\perp X_j\)</span> for each <span class="math inline">\(j\)</span>.
+<ul>
+<li>marginal independence</li>
+</ul></li>
 </ul></li>
 </ul>
 </div>
