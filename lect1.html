@@ -487,6 +487,38 @@ Pubh 8446
 </ul></li>
 </ul>
 </div>
+<div id="fdr-control" class="slide section level2">
+<h1>FDR control</h1>
+<ul>
+<li>When p-values are <strong>independent</strong>, the previous procedure is guarantteed to control the FDR at <span class="math inline">\(q\)</span>.
+<ul>
+<li>more specifically: p-values following the null distribution are independent and uniformly distributed.
+<ul>
+<li>independent and uniformly distributed null p-values</li>
+</ul></li>
+<li>Ref: Storey JD, Taylor JE, Siegmund D. Strong control, conservative point estimation and simultaneous conservative consistency of false discovery rates: a unified approach. Journal of the Royal Statistical Society: Series B (Statistical Methodology). 2004;66(1):187–205.</li>
+</ul></li>
+<li>Empirical process approach to FDR control
+<ul>
+<li>Let <span class="math inline">\(V(t)=\sum_{null\, j} I(p_j\leq t)\)</span>, <span class="math inline">\(R(t) = \sum_j I(p_j\leq t)\)</span></li>
+<li><span class="math inline">\(V(t)/t\)</span> is a martingale with time running backwards: <span class="math inline">\(E[V(s)/s|V(t)/t] = V(t)/t, \forall s&lt;t\)</span>.
+<ul>
+<li>note that uniform p-value constrained to <span class="math inline">\([0,t]\)</span> follows a scaled uniform dist, <span class="math inline">\(U[0,t]/t\)</span></li>
+<li>hence <span class="math inline">\(E[V(s)|V(t)] = V(t)s/t\)</span>, and so <span class="math inline">\(E[V(s)/s|V(t)/t]= V(t)/t\)</span>.</li>
+</ul></li>
+<li>Recall FDR control procedure: <span class="math inline">\(t_0 = \arg\max_t mt/R(t)\leq q\)</span>
+<ul>
+<li>or <span class="math inline">\(\max_k p_{(k)}\leq q\frac{k}{m}\)</span>, taking <span class="math inline">\(t\)</span> at those ordered p-values: <span class="math inline">\(p_{(1)}\leq ...\leq p_{(m)}\)</span></li>
+<li>So <span class="math inline">\(R(t_0) = mt_0/q\)</span> (<span class="math inline">\(t_0\)</span> is a stopping time)</li>
+<li><span class="math inline">\(E[V(t_0)/R(t_0)] = E[V(t_0)/t_0]\frac{q}{m} = E[V(1)/1]\frac{q}{m} = q\frac{m_0}{m}\leq q\)</span>
+<ul>
+<li>strict FDR control</li>
+</ul></li>
+<li>based on the optional stopping time theorem for martingale.</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
 <div id="fdr-control-and-dependence-among-tests" class="slide section level2">
 <h1>FDR control and dependence among tests</h1>
 <ul>
