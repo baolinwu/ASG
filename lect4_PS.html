@@ -503,6 +503,7 @@ Pubh 8446
 <li>Factor/random effects modeling</li>
 <li>SVD/PCA</li>
 </ul></li>
+<li>Ref: Hao W, Song M, Storey JD. Probabilistic models of genetic variation in structured populations applied to global human studies. Bioinformatics. 2016 Mar 1;32(5):713–21.</li>
 </ul>
 </div>
 <div id="mixed-effects-model" class="slide section level2">
@@ -802,6 +803,62 @@ Pubh 8446
 <li><span class="math inline">\(\theta_{gj} \leftarrow \frac{\sum_{i=1}^{n} \tau_{igj}x_{ij}}{\sum_{i=1}^{n} \tau_{igj}}\)</span></li>
 <li><span class="math inline">\(\pi_{ig} \leftarrow \frac{\sum_{j=1}^{m} \tau_{igj}}{m}\)</span>,</li>
 <li><span class="math inline">\(\tau_{igj} = \frac{ \pi_{ig}\theta_{gj}^{x_{ij}}(1-\theta_{gj})^{1-x_{ij}}}{ \sum_{g=1}^2\pi_{ig} \theta_{gj}^{x_{ij}}(1-\theta_{gj})^{1-x_{ij}}}\)</span>.</li>
+</ul></li>
+</ul>
+</div>
+<div id="pca-lfm-prob-pca" class="slide section level2">
+<h1>PCA, LFM, Prob PCA</h1>
+<ul>
+<li>Given data matrix <span class="math inline">\(X\)</span> of dimension nxp.
+<ul>
+<li>WLOG, assume each covariate/column of <span class="math inline">\(X\)</span> has been centered.</li>
+</ul></li>
+<li>PCA:
+<ul>
+<li>top PC: <span class="math inline">\(\max_{\|\alpha\|=1} \|X\alpha\|^2\)</span>
+<ul>
+<li>i.e. maximize <span class="math inline">\(Var(X\alpha)\)</span> (preserve the maximum variation)</li>
+<li>sequentially derive all other PCs (residuals, or orthogonal constraint)</li>
+</ul></li>
+<li>Low dimensional approx: <span class="math inline">\(\min_{\Gamma,F} \|X-\Gamma F^T\|^2\)</span>
+<ul>
+<li>the <span class="math inline">\(L_2\)</span> norm is the Frobenius norm (sum of squares of all terms)</li>
+<li><span class="math inline">\(\Gamma\)</span>: nxk, <span class="math inline">\(F\)</span>: pxk</li>
+<li>columns of <span class="math inline">\(\Gamma\)</span> and <span class="math inline">\(F\)</span> are orthogonal
+<ul>
+<li><span class="math inline">\(\Gamma^T\Gamma\)</span> a diagonal matrix</li>
+<li><span class="math inline">\(F^TF=I_k\)</span></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>Latent factor analysis model (LFM)
+<ul>
+<li>nxp data matrix: <span class="math inline">\(X=(x_{ij})\)</span>
+<ul>
+<li><span class="math inline">\(n\)</span> obs are independent</li>
+<li><span class="math inline">\(p\)</span> covariates are dependent/correlated</li>
+</ul></li>
+<li>We model <span class="math inline">\(x_{ij} = \mu_j+\sum_{l=1}^k u_{il}f_{lj} + \epsilon_{ij}\)</span></li>
+<li><span class="math inline">\(F=(f_{lj})\)</span>: kxp (coefficient parameters)</li>
+<li><span class="math inline">\(U=(u_{ij})\)</span>: nxk random effects; <span class="math inline">\((u_{i1},...,u_{ik})\sim N(0,I_k)\)</span></li>
+<li><span class="math inline">\((\epsilon_{i1},...,\epsilon_{ip}) \sim N(0,\mbox{diag}(\sigma_1^2,...,\sigma_p^2))\)</span> (independent noises)</li>
+<li><span class="math inline">\(Cov[(x_{i1},...,x_{ip})] = F^TF + \mbox{diag}(\sigma_1^2,...,\sigma_p^2)\)</span>
+<ul>
+<li>Given any orthogonal matrix <span class="math inline">\(Q\)</span>, <span class="math inline">\(F^TQ^TQF=F^TF\)</span></li>
+<li><span class="math inline">\(F\)</span> is not identifiable, only <span class="math inline">\(F^TF\)</span> identifiable.</li>
+</ul></li>
+<li>estimation
+<ul>
+<li>MLE/REML</li>
+<li>computationally hard; many local maxima</li>
+</ul></li>
+</ul></li>
+<li>Probabilistic PCA
+<ul>
+<li><span class="math inline">\(Cov(X_i) = F^TF + \sigma^2I_p\)</span>
+<ul>
+<li>solution: <span class="math inline">\(F^TF\)</span> from the top <span class="math inline">\(k\)</span> PCs; and <span class="math inline">\(\sigma^2\)</span> estimated from the bottom eigenvalues.</li>
+</ul></li>
 </ul></li>
 </ul>
 </div>
